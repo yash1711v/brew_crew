@@ -15,7 +15,7 @@ class _AuthenticationState extends State<Authentication> {
   @override
   Widget build(BuildContext context) {
     bool ShowSignin=true;
-    void toggleView()//this Function is toggle between one to Another
+      toggleView()//this Function is toggle between one to Another
     {
       setState(() {
         ShowSignin=!ShowSignin;//this Simple Reverse the Value What so ever is in the showSignin
@@ -23,13 +23,13 @@ class _AuthenticationState extends State<Authentication> {
     }
    if(ShowSignin==true)
      {
-       return signin(toggleView: toggleView);//passing the name parameter of Toggle which can be accesed by them in there Widget
+       return signin();//passing the name parameter of Toggle which can be accesed by them in there Widget
         /*
         * here the Text before : can be anything but the TExt after this must be same as the Text Before it
         * */
      }
    else{
-     return Registeration(toggleView: toggleView);//passing the name parameter of Toggle Whhich can be accesed by them in there Wodget
+     return Registeration();//passing the name parameter of Toggle Whhich can be accesed by them in there Wodget
    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:brew/Screens/Aunthentication/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../module/module.dart';
@@ -34,8 +35,27 @@ class AuthServices {
     }
   }
   //sign in with email & password
-
+Future signinWithEmailAndPassword(String email,String password)async{
+    try{
+      UserCredential result=await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User? Fuser = result.user;// puting the Current  Firebase user to the Custom user Class
+      return _userFromFirebaseuser(Fuser!);
+    }catch(e){
+      print(e.toString());// if try is not true we are cathing the error
+      return null;
+    }
+}
   //register with email & password
+  Future registerWithEmailAndPassword(String email,String password)async{
+    try{
+      UserCredential result=await _auth.createUserWithEmailAndPassword(email: email, password: password);//using a method of firebase Authentication which is createUSerwithEmailAndPassword
+    User? Fuser = result.user;// puting the Current  Firebase user to the Custom user Class
+      return _userFromFirebaseuser(Fuser!);//Returning the user With it uid if all the try is true
+    }catch(e){
+        print(e.toString());// if try is not true we are cathing the error
+      return null;
+    }
+  }
 
   //Sign out
 Future signout() async{

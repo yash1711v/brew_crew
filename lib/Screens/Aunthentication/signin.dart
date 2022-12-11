@@ -7,14 +7,16 @@ import '../Home/Home.dart';
 class signin extends StatefulWidget {
 
 //making of constructor to accept the the Togglemethod
-  late final Function toggleView;//making a variable of Function type to accept the value
-  signin({required this.toggleView});//constructor which is Recieving the value and asign it to the signin's toggleView
+//   late final Function toggleView;//making a variable of Function type to accept the value
+//   signin({required this.toggleView});//constructor which is Recieving the value and asign it to the signin's toggleView
+
   @override
   State<signin> createState() => _signinState();
 }
 
 class _signinState extends State<signin> {
   final AuthServices _auth= AuthServices();
+  final _formkey=GlobalKey<FormState>();
   //6/12/2022
   late String email="";
   late String Password;
@@ -28,7 +30,9 @@ class _signinState extends State<signin> {
         elevation: 0.0,
         actions: <Widget>[
            TextButton.icon(onPressed: (){
-
+          //widget.toggleView();
+             //Navigator.pop(context, "/registeration");
+          Navigator.pushNamed(context, "/registeration");//now we are Using widget not Widget and This cause this.toggle will Going to refer the state change Toogle but we want this widgets Toogle
            },
            icon: Icon(Icons.person_add,color: Colors.white,),
              label: Text("Register",style: TextStyle(
@@ -83,6 +87,7 @@ class _signinState extends State<signin> {
               body: Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),//to make Padding from top and bottom equally
                 child: Form(
+                  key:_formkey,
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 20.0),
@@ -112,12 +117,32 @@ class _signinState extends State<signin> {
                       ),
                       SizedBox(height: 20.0,),
                       ElevatedButton(
-                          onPressed: (){
-                            Fluttertoast.showToast(
-                              msg: email,
-                              backgroundColor: Colors.grey,
-                            );
+                          onPressed: () async{
+                            // dynamic result=await _auth.signInAnon();
+                            // if(result==null)
+                            // {
+                            //   print("Error");
+                            // }
+                            // else{
+                            //   // print("signin");
+                            //   // print(result);
+                            //   // //just now print the userid Uid instead of whole result
+                            //   // print(result.uid);
+                            if(_formkey.currentState!.validate()){//checking the current  state of Form
+                            dynamic result=await _auth.signinWithEmailAndPassword(email, Password);
+                            if(result==null)
+                            {
+                                setState(() {
+                              _auth.signinWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
+                                });
 
+                              }
+                            }
+                            Fluttertoast.showToast(
+                              msg: "logged in sucessFully",
+                              backgroundColor: Colors.grey,
+
+                            );
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.resolveWith((states) {
