@@ -1,4 +1,5 @@
 import 'package:brew/Screens/Aunthentication/signin.dart';
+import 'package:brew/Services/database.dartt.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../module/module.dart';
@@ -17,7 +18,7 @@ class AuthServices {
       return null;
     }
   }
-  //---------------------------done on 6/12/2022(copy se jarur padhe )------------------------------------------------------------------------------------------------------------------------------
+  //---------------------------done on 6/12/202 2(copy se jarur padhe )------------------------------------------------------------------------------------------------------------------------------
   //auth chane user stream
   Stream<user?> get usr{//useing the stream which is returning the userclass stream not of firebaseuser
     return _auth.authStateChanges().map((User? ur)=>_userFromFirebaseuser(ur!));
@@ -45,11 +46,15 @@ Future signinWithEmailAndPassword(String email,String password)async{
       return null;
     }
 }
+String Uid="";
   //register with email & password
   Future registerWithEmailAndPassword(String email,String password)async{
     try{
       UserCredential result=await _auth.createUserWithEmailAndPassword(email: email, password: password);//using a method of firebase Authentication which is createUSerwithEmailAndPassword
-    User? Fuser = result.user;// puting the Current  Firebase user to the Custom user Class
+    User? Fuser = result.user; // puting the Current  Firebase user to the Custom user Class
+      Uid=Fuser!.uid;
+      //create a new  document for the user with uid
+      await DatabaseServices(uid: Fuser!.uid).updateuserData('0', 'new crew member', 100 );
       return _userFromFirebaseuser(Fuser!);//Returning the user With it uid if all the try is true
     }catch(e){
         print(e.toString());// if try is not true we are cathing the error

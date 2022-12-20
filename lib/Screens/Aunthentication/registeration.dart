@@ -2,6 +2,7 @@ import 'package:brew/Screens/Aunthentication/Authentication.dart';
 import 'package:brew/Screens/Home/Home.dart';
 import 'package:brew/Screens/Wrapper/Wrapper.dart';
 import 'package:brew/Services/auth.dart';
+import 'package:brew/Shared/LoadingScren.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 class Registeration extends StatefulWidget {
@@ -10,16 +11,16 @@ class Registeration extends StatefulWidget {
   @override
   State<Registeration> createState() => _RegisterationState();
 }
-
 class _RegisterationState extends State<Registeration> {
   final AuthServices _auth=AuthServices();//making object of Authservices
   final _formkey=GlobalKey<FormState>();//Making the Globalkey of FormState type to identify and to keep check on our form now declare this in below in formkey
+  bool loading=false;
   String email="";
   String Password="";
   /*11/12/2022*/ String Error= " ";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading?Loading():Scaffold(
         backgroundColor: Colors.brown[100],
         appBar: AppBar(
         title:Text('Register  to brew Crew'),
@@ -74,12 +75,14 @@ class _RegisterationState extends State<Registeration> {
             ElevatedButton(
               onPressed: () async {
                 if(_formkey.currentState!.validate()){//checking the current  state of Form
+                 setState((){loading=true;});
                   dynamic result=await _auth.registerWithEmailAndPassword(email, Password);
                   if(result==null)
                     {
                         setState(() {
                           Error= _auth.registerWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
-                      });
+                          loading=false;
+                        });
 
                     }
 
@@ -89,7 +92,7 @@ class _RegisterationState extends State<Registeration> {
 
                           });
                           Fluttertoast.showToast(
-                              msg: "login SuccessFull",
+                              msg: "Registeration SuccessFull",
                               backgroundColor: Colors.grey);
                   }
                 }

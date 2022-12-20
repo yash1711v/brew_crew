@@ -1,4 +1,5 @@
 import 'package:brew/Services/auth.dart';
+import 'package:brew/Shared/LoadingScren.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -17,12 +18,14 @@ class signin extends StatefulWidget {
 class _signinState extends State<signin> {
   final AuthServices _auth= AuthServices();
   final _formkey=GlobalKey<FormState>();
+  //creating the boolean type for loading initially it is False
+  bool loading=false;
   //6/12/2022
   late String email="";
   late String Password;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading():Scaffold(//checking whether the Loading is false or not if it is false Show Scafold And if not Show Loading screem
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         title:Text('Signin to brew Crew'),
@@ -129,14 +132,21 @@ class _signinState extends State<signin> {
                             //   // //just now print the userid Uid instead of whole result
                             //   // print(result.uid);
                             if(_formkey.currentState!.validate()){//checking the current  state of Form
+                              setState(() {
+                                loading=true;//true when Button is Clicked and Every thing is valid
+                              });//to change the state and to hide all the scafold stuff and Just to Show the Loading screen
                             dynamic result=await _auth.signinWithEmailAndPassword(email, Password);
                             if(result==null)
                             {
                                 setState(() {
-                              _auth.signinWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
+                                 _auth.signinWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
+                                 loading=false;
                                 });
 
                               }
+                            else{   Fluttertoast.showToast(
+                                msg: "login SuccessFull",
+                                backgroundColor: Colors.grey);}
                             }
                             Fluttertoast.showToast(
                               msg: "logged in sucessFully",
