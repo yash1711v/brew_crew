@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../module/brew.dart';
+import '../module/module.dart';
 class DatabaseServices{
    final String uid;
   DatabaseServices({required this.uid});
@@ -24,7 +25,7 @@ class DatabaseServices{
           strength: doc.get('strength')??0
       );}
     ).toList();}
-//get brews Stream
+//get brews Stream This from Firebase to Our user
 //   Stream<QuerySnapshot> get brews{
 //       return brewCollection.snapshots();
 //     }
@@ -32,4 +33,12 @@ class DatabaseServices{
   Stream<List<brew>> get brews{
     return brewCollection.snapshots().map(_brewListFromsnapshot);
   }
+  //userData For SnapShot
+  UserData _UserdataFromSnapshot(DocumentSnapshot snapshot){ //Calling the User Data Class of Module
+    return UserData(uid: uid, name: snapshot.get('name'), Sugar: snapshot.get('sugars'), Strength: snapshot.get('Strength'));
+  }
+  //This Stream is to give Or update or Travel The data From User To the
+    Stream<UserData> get userDate{
+    return brewCollection.doc(uid).snapshots().map(_UserdataFromSnapshot);
+    }
 }
