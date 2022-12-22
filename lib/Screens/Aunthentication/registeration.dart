@@ -21,24 +21,24 @@ class _RegisterationState extends State<Registeration> {
   @override
   Widget build(BuildContext context) {
     return loading?Loading():Scaffold(
-        backgroundColor: Colors.brown[100],
-        appBar: AppBar(
+      backgroundColor: Colors.brown[100],
+      appBar: AppBar(
         title:Text('Register  to brew Crew'),
-    backgroundColor: Colors.brown[800],
-    elevation: 0.0,
-          actions: <Widget>[
-            TextButton.icon(onPressed: (){
-              Navigator.pop(context, "/sigin");
-              //widget.toggleView();//now we are Using widget not Widget and This cause this.toggle will Going to refer the state change Toogle but we want this widgets Toogle
-            },
-              icon: Icon(Icons.person_add,color: Colors.white,),
-              label: Text("Signin",style: TextStyle(
-                color: Colors.white,
-              ),
-              ),
-            )
-          ],
-    ), body: Container(
+        backgroundColor: Colors.brown[800],
+        elevation: 0.0,
+        actions: <Widget>[
+          TextButton.icon(onPressed: (){
+            Navigator.pop(context, "/sigin");
+            //widget.toggleView();//now we are Using widget not Widget and This cause this.toggle will Going to refer the state change Toogle but we want this widgets Toogle
+          },
+            icon: Icon(Icons.person_add,color: Colors.white,),
+            label: Text("Signin",style: TextStyle(
+              color: Colors.white,
+            ),
+            ),
+          )
+        ],
+      ), body: Container(
       padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),//to make Padding from top and bottom equally
       child: Form(
         key:_formkey,
@@ -75,25 +75,25 @@ class _RegisterationState extends State<Registeration> {
             ElevatedButton(
               onPressed: () async {
                 if(_formkey.currentState!.validate()){//checking the current  state of Form
-                 setState((){loading=true;});
+                  setState((){loading=true;});
                   dynamic result=await _auth.registerWithEmailAndPassword(email, Password);
                   if(result==null)
-                    {
-                        setState(() {
-                          Error= _auth.registerWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
-                          loading=false;
-                        });
+                  {
+                    setState(() {
+                      Error= _auth.registerWithEmailAndPassword(email, Password).onError((error, stackTrace) => print(error))as String;
+                      loading=false;
+                    });
 
-                    }
+                  }
 
                   else{
-                          _auth.registerWithEmailAndPassword(email, Password).whenComplete(() {
-                            Navigator.pop(context, "/Home");
+                    _auth.registerWithEmailAndPassword(email, Password).whenComplete(() {
+                      Navigator.pop(context, "/Home");
 
-                          });
-                          Fluttertoast.showToast(
-                              msg: "Registeration SuccessFull",
-                              backgroundColor: Colors.grey);
+                    });
+                    Fluttertoast.showToast(
+                        msg: "Registeration SuccessFull",
+                        backgroundColor: Colors.grey);
                   }
                 }
               },

@@ -1,5 +1,6 @@
 
 import 'package:brew/Services/database.dartt.dart';
+import 'package:brew/Shared/LoadingScren.dart';
 import 'package:brew/module/module.dart';
 import 'package:flutter/material.dart';
 import 'package:brew/Shared/constants.dart';
@@ -22,7 +23,6 @@ class _SettingsFormState extends State<SettingsForm> {
     return StreamBuilder<UserData>(
       stream: DatabaseServices(uid: uuser!.uid).userDate,
       builder: (context,snapshot) {
-    if(snapshot.hasData){
       UserData? userD=snapshot.data;
       return Form(
         key: _formKey,
@@ -126,10 +126,6 @@ class _SettingsFormState extends State<SettingsForm> {
         ),
       );
     }
-    else {
-
-    }
-      }
     );
   }
 }

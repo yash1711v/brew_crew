@@ -11,6 +11,7 @@ import '../../module/brew.dart';
 //It is containg two Things Either Brew List or settings Which is Means It is Just Updating There is No state Change So We Use State Full Widget
 class Home extends StatelessWidget {
 AuthServices _auth=AuthServices();
+
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
@@ -23,7 +24,6 @@ AuthServices _auth=AuthServices();
         );   
       });
     }//to make the Bottom sheet
-final AuthServices _as=new AuthServices();
     return StreamProvider<List<brew>>.value(
       value : DatabaseServices(uid: _auth.Uid).brews,//creating DatabaseStream and Access the brew Stream on it
       initialData: [],
@@ -35,7 +35,7 @@ final AuthServices _as=new AuthServices();
           elevation: 0.0,
           actions: <Widget>[
             TextButton.icon(onPressed: () async{
-              await _as.signout();
+              await _auth.signout();
             },
                 icon: Icon(Icons.logout,color: Colors.white,),
                 label: Text('Logout',
