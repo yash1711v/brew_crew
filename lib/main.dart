@@ -1,6 +1,7 @@
 
 import 'package:brew/Screens/Aunthentication/Authentication.dart';
 import 'package:brew/Screens/Aunthentication/signin.dart';
+import 'package:brew/Screens/Home/Details.dart';
 import 'package:brew/Screens/Wrapper/Wrapper.dart';
 import 'package:brew/Services/auth.dart';
 import 'package:brew/module/module.dart';
@@ -29,6 +30,7 @@ Future <void> main()async{
       routes: {"/registeration":(context)=>Registeration(),
         "/sigin":(context)=>signin(),
         "/Home":(context)=>Home(),
+        "/Details":(context)=>Details(),
 
       },//as the Video method is not Working for me
 //Our app Goes From Main To Wrapper From wrapper it Goes To Either Authentication or a Home

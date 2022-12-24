@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:brew/module/brew.dart';
+
+import '../../Services/auth.dart';
 class BrewTile extends StatelessWidget {
   late final brew Brew;
+  CollectionReference ref = FirebaseFirestore.instance.collection('brews');
+  AuthServices _auth=AuthServices();
   BrewTile({required this.Brew});
   @override
   Widget build(BuildContext context) {

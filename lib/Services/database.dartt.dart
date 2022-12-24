@@ -22,7 +22,7 @@ class DatabaseServices{
       return brew(
           name: doc.get('name')??'',
           sugar: doc.get('sugars')??'0',
-          strength: doc.get('strength')??0
+          strength: doc.get('strength')//yaha Value denge toh ruk jaegs
       );}
     ).toList();}
 //get brews Stream This from Firebase to Our user
