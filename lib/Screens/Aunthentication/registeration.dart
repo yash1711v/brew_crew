@@ -17,6 +17,7 @@ class Registeration extends StatefulWidget {
   State<Registeration> createState() => _RegisterationState();
 }
 class _RegisterationState extends State<Registeration> {
+
   final AuthServices _auth=AuthServices();//making object of Authservices
   final _formkey=GlobalKey<FormState>();//Making the Globalkey of FormState type to identify and to keep check on our form now declare this in below in formkey
   CollectionReference ref = FirebaseFirestore.instance.collection('brews');
@@ -29,9 +30,19 @@ class _RegisterationState extends State<Registeration> {
   late String _currentSugar;
   int _currentStrength=100;
   /*11/12/2022*/ String Error= " ";
+   @override
+   void initState() {
+     setuoEmail();
+     super.initState();
+     print("objext");
 
-  @override
+   }
+   setuoEmail(){
+     email="abc.gmail.com";
+   }
+   @override
   Widget build(BuildContext context) {
+     print("build Method Called");
     return loading?Loading():Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
@@ -119,6 +130,7 @@ class _RegisterationState extends State<Registeration> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                initialValue: email,
                 decoration: InputDecoration(
                   hintText: "Enter Email",
                   labelText: "Enter Email",

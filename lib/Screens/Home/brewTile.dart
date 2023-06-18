@@ -6,7 +6,7 @@ import '../../Services/auth.dart';
 class BrewTile extends StatelessWidget {
   late final brew Brew;
   CollectionReference ref = FirebaseFirestore.instance.collection('brews');
-  AuthServices _auth=AuthServices();
+  //AuthServices _auth=AuthServices();
   BrewTile({required this.Brew});
   @override
   Widget build(BuildContext context) {

@@ -15,13 +15,21 @@ AuthServices _auth=AuthServices();
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
-      showModalBottomSheet(context: context, builder: (context){
-        return Container(
-          height: 1000.0,
-          color: Colors.orange[100],
-          padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 60.0),
-          child: SettingsForm(),
-        );   
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder( // <-- SEE HERE
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(25.0),
+            ),
+          ),
+          enableDrag: true,
+          backgroundColor: Colors.orangeAccent[100],
+          builder: (context){
+        return  Container(
+          height: 450,
+          padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
+            child: SettingsForm());
       });
     }//to make the Bottom sheet
     return StreamProvider<List<brew>>.value(
@@ -45,7 +53,15 @@ AuthServices _auth=AuthServices();
             )
           ],
         ),
-        body: BrewList(),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('Assists/coffee-beans-on-a-table.jpg'),
+              fit: BoxFit.cover
+            )
+          ),
+            child: BrewList()
+        ),
         floatingActionButton: SizedBox(
           height: 50,
           width: 150,

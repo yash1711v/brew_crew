@@ -23,6 +23,15 @@ class _signinState extends State<signin> {
   //6/12/2022
   late String email="";
   late String Password;
+  void initState() {
+    setuoEmail();
+    super.initState();
+    print("object");
+
+  }
+  setuoEmail(){
+    email="abc.gmail.com";
+  }
   @override
   Widget build(BuildContext context) {
     return loading? Loading():Scaffold(//checking whether the Loading is false or not if it is false Show Scafold And if not Show Loading screem
@@ -97,9 +106,10 @@ class _signinState extends State<signin> {
                       TextFormField(
                         decoration: InputDecoration(
                             //border: OutlineInputBorder(),
-                            hintText: "Email  Id",
-                          labelText: "Enter Your Email id",
+                            hintText: "Enter Email",
+                          labelText: "Enter Email",
                         ),
+                        initialValue: email,
                         onChanged: (val){
                         setState(() {
                           email=val;// seting the email state from empty to the val which is given to the textfield

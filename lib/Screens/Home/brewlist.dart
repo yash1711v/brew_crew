@@ -31,7 +31,6 @@ class _BrewListState extends State<BrewList> {
     return ListView.builder(
         itemCount: brews.length,
       scrollDirection: Axis.vertical,
-      shrinkWrap: true,
       itemBuilder: (context,index){
         return BrewTile(Brew: brews[index],);
       },
